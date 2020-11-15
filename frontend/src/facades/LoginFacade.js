@@ -1,5 +1,5 @@
 import token, { makeOptions, handleHttpErrors } from "./fetchUtils";
-import { loginURL as URL } from "./settings";
+import { loginURL as URL, signupURL } from "./settings";
 
 function apiFacade() {
   const setToken = (token) => token.setToken(token)
@@ -24,7 +24,7 @@ function apiFacade() {
       username,
       password
     }); 
-    return fetch("http://localhost:8080/jpareststarter/api/signup", options).then(handleHttpErrors);
+    return fetch(signupURL, options).then(handleHttpErrors);
   }
 
   const fetchUserRole = (user) => {

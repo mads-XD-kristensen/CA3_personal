@@ -1,5 +1,6 @@
 package rest;
 
+import entities.Phones;
 import entities.User;
 import entities.Role;
 
@@ -66,15 +67,20 @@ public class LoginEndpointTest {
         try {
             em.getTransaction().begin();
             //Delete existing users and roles to get a "fresh" database
+            em.createQuery("delete from Phones").executeUpdate();
             em.createQuery("delete from User").executeUpdate();
             em.createQuery("delete from Role").executeUpdate();
 
+            Phones userPhone = new Phones("111");
+            Phones adminPhone = new Phones("222");
             Role userRole = new Role("user");
             Role adminRole = new Role("admin");
             User user = new User("user", "test");
             user.addRole(userRole);
+            user.addPhone(userPhone);
             User admin = new User("admin", "test");
             admin.addRole(adminRole);
+            admin.addPhone(adminPhone);
             User both = new User("user_admin", "test");
             both.addRole(userRole);
             both.addRole(adminRole);

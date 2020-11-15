@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import facade from "./facades/LoginFacade";
 import Home from "./components/Home";
 import Signup from "./components/Signup";
+import Phones from "./components/Phones"
 
 function App() {
   const [user, setUser] = useState("Loading...");
@@ -46,6 +47,9 @@ function App() {
           </Route>
           <Route path="/services" />
           <Route path="/products" />
+          <Route path="/phones">
+            <Phones />
+          </Route>
           <Route path="/signin">
             <Login
               userRole={userRole}

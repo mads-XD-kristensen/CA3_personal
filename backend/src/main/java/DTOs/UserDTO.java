@@ -8,25 +8,24 @@ package DTOs;
 import entities.User;
 import java.util.List;
 
-/**
- *
- * @author marcg
- */
 public class UserDTO {
 
     private String username;
     private String password;
     private List<String> roles;
+    private List<String> phones;
 
-    public UserDTO(String name, String password, List<String> roles ) {
+    public UserDTO(String name, String password, List<String> roles, List<String> phones) {
         this.username = name;
         this.roles = roles;
         this.password = password;
+        this.phones = phones;
     }
 
     public UserDTO(User user) {
         this.username = user.getUserName();
         this.roles = user.getRolesAsStrings();
+        this.phones = user.getPhonesAsStrings();
     }
 
     public String getName() {
@@ -40,4 +39,9 @@ public class UserDTO {
     public String getPassword() {
         return password;
     }
+
+    public List<String> getPhones() {
+        return phones;
+    }
+
 }

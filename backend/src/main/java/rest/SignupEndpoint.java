@@ -52,9 +52,11 @@ public class SignupEndpoint {
     @Consumes(MediaType.APPLICATION_JSON)
     public String make(String user) throws InvalidInputException {
         List<String> roles = new ArrayList();
+        List<String> phones = new ArrayList();
+        phones.add("user");
         roles.add("user");
         UserDTO userDTO = GSON.fromJson(user, UserDTO.class);
-        userDTO = new UserDTO(userDTO.getName(), userDTO.getPassword(), roles);
+        userDTO = new UserDTO(userDTO.getName(), userDTO.getPassword(), roles, phones);
         userDTO = FACADE.addUser(userDTO);
 
         return GSON.toJson(userDTO);

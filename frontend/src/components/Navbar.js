@@ -49,13 +49,14 @@ function Navbar() {
             <LinkMaker text="Home" path="" />
             <LinkMaker text="Services" path="services" />
             <LinkMaker text="Products" path="products" />
+            <LinkMaker text="Phones" path="phones" />
             <li>
               <Link
                 to="/signin"
                 className="nav-links-mobile"
                 onClick={closeMobileMenu}
               >
-                SING IN
+                SIGN IN
               </Link>
             </li>
           </ul>
@@ -63,7 +64,7 @@ function Navbar() {
           {button && (
             <Link to="signin" className="btn-mobile">
               <Button buttonStyle="btn--outline" link="/signin">
-                SING IN
+                SIGN IN
               </Button>
             </Link>
           )}

@@ -1,12 +1,18 @@
 package facades;
 
+import DTOs.PhoneDTO;
+import DTOs.PhonesDTO;
 import DTOs.UserDTO;
+import entities.Phones;
 import entities.Role;
 import entities.User;
 import errorhandling.InvalidInputException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import security.errorhandling.AuthenticationException;
 
 /**
@@ -47,6 +53,17 @@ public class UserFacade {
         return user;
     }
 
+    public PhonesDTO getAllPhones() {
+        EntityManager em = emf.createEntityManager();
+       
+        try {
+            return new PhonesDTO(em.createQuery("SELECT p FROM Phones p").getResultList());
+        } finally {
+            em.close();
+        }
+
+    }
+
     public UserDTO addUser(UserDTO userDTO) throws InvalidInputException {
         EntityManager em = emf.createEntityManager();
         String name = null;
@@ -54,7 +71,8 @@ public class UserFacade {
             Query query = em.createQuery("SELECT u.userName FROM User u WHERE u.userName = :name");
             query.setParameter("name", userDTO.getName());
             name = (String) query.getSingleResult();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         if (name != null) {
             throw new InvalidInputException(String.format("The name %s is already taken", name));
@@ -63,6 +81,9 @@ public class UserFacade {
         User user = new User(userDTO.getName(), userDTO.getPassword());
         for (String role : userDTO.getRoles()) {
             user.addRole(new Role(role));
+        }
+        for (String number : userDTO.getPhones()) {
+            user.addPhone(new Phones(number));
         }
         em.getTransaction().begin();
         em.persist(user);
